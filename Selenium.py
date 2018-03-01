@@ -32,16 +32,16 @@ def vacancy(driver, numb):  # Заходит на вакансию после ч
 def vacancy_operator(driver): # Возращает список с Именем, Городом и Описанием Вакансии
     name = driver.find_element_by_id("h1-name").text # Название вакансии
     city = driver.find_element_by_xpath('/html/body/section/div/div[2]/div[1]/div[3]/div/dl/dd[2]').text # Город вакансии
-    description = driver.find_element_by_xpath('/html/body/section/div/div[2]/div[1]/div[3]/div/div[2]').text # Описание вакансии
-    row_info = [name, city, description] # Переменная со Списком
+    description = driver.find_element_by_xpath('/html/body/section/div/div[2]/div[1]/div[3]/div/div[2]').text.encode("utf-8") # Описание вакансии
+    raw_info = [name, city, description] # Переменная со Списком
 
-    csv_writer(row_info)
+    csv_writer(raw_info)
 
 
-def csv_writer(row_info): # Функция для записи списка в "vacancy.csv" файл
+def csv_writer(raw_info): # Функция для записи списка в "vacancy.csv" файл
     with open(csv_vacancy, "a", newline="") as csv_file:
         writer = csv.writer(csv_file)
-        writer.writerow(row_info)
+        writer.writerow(raw_info)
 
 
 
